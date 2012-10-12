@@ -19,7 +19,7 @@
 ; like a menu or search around for a file
 
 ; change directory
-(ftp-cd ftp-conn new-dir)
+;(ftp-cd ftp-conn new-dir)
 
 ; return a list of files in cwd
 ; if path is given, check there
