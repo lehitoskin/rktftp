@@ -7,6 +7,6 @@ TODO:
 
 	No arguments, give a help screen
 
-	Create menu
-
 	Upload files
+
+	Mirror normal FTP commands
