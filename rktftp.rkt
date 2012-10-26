@@ -1,7 +1,21 @@
 #!/usr/bin/env racket
 #lang racket
-; rktftp.rkt
-; an ftp client
+; rktftp.rkt - an ftp client
+; Copyright (C) 2012 Lehi Toskin
+;
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; (at your option) any later version.
+;
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+;
+; You should have received a copy of the GNU General Public License
+; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;
 
 (require net/ftp)
 
@@ -28,23 +42,22 @@
     
     (define (help)
       (printf "Current supported commands:
-	      d - change directory to given path
+	      cd - change directory to given path
 	      ls - list contents of a directory
 	      q(uit) - quit the program
 	      h(elp) - display this help message\n"))
 	       
-    ; downloads file from the server's current directory
-    ; and puts it in local-dir, using the same name.
     ; only writes at the end of transfer, will overwrite
     ; files of the same name
-    ;(display "Downloading the file!\n")
-    ;(ftp-download-file ftp-conn local-dir file)
+    (define (get local-dir file)
+      (display "Downloading the file!\n")
+      (ftp-download-file ftp-conn local-dir file))
 
     ; main loop
     (define (menu)
       (display "ftp> ")
       (let ((cmd (symbol->string (read))))
-	(define oper (substring cmd 0))
+	(define oper (substring cmd 1))
 	(cond ((equal? cmd "cd")
 	       (display "You called 'cd'!\n")
 	       (cd oper))
@@ -54,8 +67,13 @@
 	      ((equal? cmd "h")
 	       (display "You called 'h'!\n")
 	       (help))
+	      ((equal? cmd "help")
+	       (display "You called 'help'!\n")
+	       (help))
+	      ((equal? cmd "get")
+	       (get oper1 oper2))
 	      (else (display "None of the options called.\n")))
-	(cond ((not (equal? cmd "q"))
+	(cond ((not (or (equal? cmd "q") (equal? cmd "quit")))
 	       (menu)))))
 
     (menu)
