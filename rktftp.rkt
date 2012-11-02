@@ -19,10 +19,8 @@
 
 (require net/ftp)
 
-(define port-no 21)
-
 (command-line
-  #:args (server user passwd)
+  #:args (server port-no user passwd)
 
   ; establish a connection
   (let ((ftp-conn (ftp-establish-connection server
@@ -50,7 +48,7 @@
     ; only writes at the end of transfer, will overwrite
     ; files of the same name
     (define (get local-dir file)
-      (display "Downloading the file!\n")
+      (display "Downloading...\n")
       (ftp-download-file ftp-conn local-dir file))
 
     ; main loop
