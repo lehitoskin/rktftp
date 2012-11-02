@@ -7,6 +7,6 @@ TODO:
 
 	No arguments, give a help screen
 
-	Upload files
-
 	Mirror normal FTP commands
+
+	List files in a sane manner
